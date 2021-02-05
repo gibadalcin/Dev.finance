@@ -283,11 +283,11 @@ input {
 footer {
     text-align: center;
     padding: 4rem 0 2rem;
-    opacity:0.4;
+    opacity:0.3;
 }
 
 #logo {
-    max-width: 21rem;
+    max-width: 18rem;
     max-height: 20rem;
 }
 
