@@ -73,7 +73,7 @@ const Transaction = {
     total() {
         return Transaction.incomes() + Transaction.expenses();
     }
-}
+} 
 
 const DOM = {
     transactionsContainer: document.querySelector('#data-table tbody'),
@@ -117,13 +117,14 @@ const DOM = {
     clearTransactions() {
         DOM.transactionsContainer.innerHTML = ""
     }
+
 }
 
 const Utils = {
     formatAmount(value) {
-        //value = Number(value.replace(/\,\./g, "")) * 100 ou
-        value = Number(value)*100
+       //value = Number(value.replace(/\,\./g, ""))*100
 
+        value = Number(value)*100
         return value
     },
 
@@ -134,14 +135,14 @@ const Utils = {
 
     formatCurrency(value) {
         const signal = Number(value) < 0 ? "-" : ""
-        value = String(value).replace(/\D/g,"")
-        value = Number(value) / 100
+        value = String(value).replace(/\,\./g, "")
+        value = Number(value) /100
         value = value.toLocaleString("pt-BR", {
             style: "currency",
             currency: "BRL"
         })
 
-        return signal + value
+        return  value
     }
 }
 
@@ -224,6 +225,55 @@ const App = {
     }
 }
 
+
+
+function show_incomes() {
+
+    //limpando todos os valores da tela
+    DOM.clearTransactions()
+
+    //buscando o conteúdo da página na Storage e armazenando na variável
+    let incomes = Storage.get();
+
+    //listando os objetos e informando os parâmetros de busca e condicionais para exibição
+    incomes.forEach(function(income) {
+
+        if(income.amount > 0) {
+     // mostrando na DOM apenas objetos com valores positivos      
+            DOM.addTransaction(income)
+       }
+   });
+}
+
+function show_expenses() {
+    // limpando todos os valores da tela
+    DOM.clearTransactions()
+
+    //buscando o conteúdo da página na Storage e armazenando na variável
+    let expenses = Storage.get();
+
+    //listando os objetos e informando os parâmetros de busca e condicionais para exibição
+    expenses.forEach(function(expense) {
+
+        if(expense.amount < 0) {
+     // mostrando na DOM apenas objetos com valores negativos      
+            DOM.addTransaction(expense)
+       }//else
+   });
+ }
+
+ function reload_ap() {
+     App.reload()
+ } 
+
 App.init()
+    
+
+    
+
+    
+    
+   
+
 
 

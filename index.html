@@ -11,8 +11,11 @@
 </head>
 
 <body>
+    <a href="#transaction" onclick="reload_ap()">
+        <img id="reload_ap" src="./assets/reload.png" alt="Reload App">
+    </a>
     <header>
-        <img src="./assets/logo.svg" alt="Logo Dev Finance">
+        <img id="name_ap" src="./assets/logo.svg" alt="Logo Dev Finance">
     </header>
 
     <main class="container">
@@ -44,10 +47,13 @@
                 <p id="totalDisplay">R$0,00</p>
             </div>   
         </section>
-
+        <h2 class="sr-only">Transações</h2>
+            <div class="views">
+                <a href="#transaction" id="button_view_income" onclick="show_incomes()" class="button new">  > Ver Receitas</a>
+                <a href="#transaction" id="button_view_expense" onclick="show_expenses()" class="button new"> > Ver Despesas</a>
+                <a href="#" id="button_insert_new" onclick="Modal.open()" class="button new"> + Nova Transação</a>
+            </div>
         <section id="transaction">
-            <h2 class="sr-only">Transações</h2>
-            <a href="#" onclick="Modal.open()" class="button new"> + Nova Transação</a>
             <table id="data-table">
                 <thead>
                     <tr>
@@ -122,9 +128,11 @@
 
     <footer>
         <p><img id="logo" src="./assets/nlv.svg" alt="Design by"></p>
+        <div class="footer_copy">
+            © Copyright - 2020 Codartche Digital Media. All rights reserved
+        </div>
     </footer>
 
     <script src="./scripts.js"></script>
-    
 </body>
 </html>

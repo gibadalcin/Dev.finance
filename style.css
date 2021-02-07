@@ -1,12 +1,17 @@
 /*Global===============================*/
 
 :root {
+    --blue:#969cb3;
     --dark-blue: #363f5f;
     --green: #49aa26;
+    --med-green: #107c41;
     --light-green: #3dd705;
+    --dark-green: #2d4a22;
     --red: #e92929;
-    --light-red: 
+    --light-red: #ff0000;
+    --white: #ffffff;
 }
+
 * {
     margin: 0;
     padding: 0;
@@ -39,7 +44,6 @@ body {
     margin: auto;
 }
 
-
 /*Titles=============================*/
 
 h2 {
@@ -49,16 +53,17 @@ h2 {
     font-weight: 400;
 }
 
-
 /*Links and Buttons==================*/
 
-a {
-    color: var(--green);
+#button_view_income,
+#button_insert_new {
+    color: var(--blue);
     text-decoration: none;
 }
 
-a:hover {
-    color: var(--light-green);
+#button_view_income:hover,
+#button_insert_new:hover {
+    color: var(--green);
 }
 
 button {
@@ -96,25 +101,43 @@ button:hover {
     opacity: 1;
 }
 
+#button_view_expense {
+    color: var(--blue);
+    text-decoration: none; 
+}
+
+#button_view_expense:hover {
+    color: var(--light-red);
+    opacity: 0.8;
+}
+
 
 /*Header=============================*/
 
 header {
-    background: #2d4a22;
-    padding: 2rem 0 10rem;
+    background: var(--dark-green);
+    padding: 3rem 0 8.5rem;
     text-align: center;
 }
 
-#logo {
-    color: #ffffff;
-    font-weight: 100;
+#reload_ap {
+    position: fixed;
+    z-index: 1;
+    margin: .5rem 0 0 .5rem;
+    height: 3rem;
+    border: .1rem solid var(--white);
+    border-radius: .25rem;
 }
 
+#name_ap {
+    padding: .2rem 0 0 1rem;
+    height: 28px;
+}
 
 /*Balance=============================*/
 
 #balance {
-    margin-top: -8rem;
+    margin-top: -6rem;
 }
 
 #balance h2 {
@@ -122,12 +145,27 @@ header {
     margin-top: 0;
 }
 
+/* Transaction=========================*/
+
 #transaction {
     display: block;
     width: 100%;
     overflow: auto;
 }
 
+.views {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+.views a {
+    border: 1px solid;
+    min-width: 248px;
+    text-align: center;
+    border-radius: 0.25rem;
+}
 
 /*Cards=============================*/
 
@@ -158,13 +196,22 @@ header {
     color: white;
 }
 
+#incomeDisplay {
+    color: var(--med-green);
+    opacity: 0.8;
+}
+
+#expenseDisplay {
+    color: var(--red);
+    opacity: 0.8;
+}
 
 /*Table=============================*/
 
 #data-table {
     width: 100%;
     border-spacing: 0 0.5rem;
-    color: #969cb3;
+    color: var(--blue);
 }
 
 table thead tr th:first-child,
@@ -193,7 +240,7 @@ table tbody tr:hover {
 }
 
 table td {
-    background: white;
+    background: var(--white);
     padding: 1rem 2rem;
 }
 
@@ -202,10 +249,11 @@ td.description {
 }
 
 td.income {
-    color: #12a454;
+    color: var(--green);
 }
 
 td.expense {
+    min-width: 150px;
     color: var(--red);
 }
 
@@ -286,6 +334,10 @@ footer {
     opacity:0.3;
 }
 
+#footer_copy {
+    font-size: 10px;
+}
+
 #logo {
     max-width: 18rem;
     max-height: 20rem;
@@ -303,4 +355,16 @@ footer {
         grid-template-columns: repeat(3, 1fr);
         gap: 2rem;
     }
+
+    .views {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    #reload_ap {
+        margin: 2rem 0 0 2rem;
+        min-height: 4rem;
+    }
+    
 }
