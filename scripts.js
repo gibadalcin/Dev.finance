@@ -293,7 +293,6 @@ const Form_dates = {
                 }
                 else if (incomes_period.initial_date == 'undefined/undefined/' || incomes_period.final_date == 'undefined/undefined/'){
                     DOM.addTransaction(income)
-                    console.log('cheguei')
                  }
             }
         });   
