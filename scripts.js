@@ -17,6 +17,29 @@ const Modal = {
     }
 }
 
+const Modal_date = {
+    
+    open() {
+       
+        //abrir modal
+        //adicionar a class active ao modal
+        document
+            .querySelector('.modal_date')
+            .classList
+            .add('active')
+            
+    },
+
+    close() {
+        //fechar o modal
+        //remover a class active do modal
+        document   
+            .querySelector('.modal_date')
+            .classList
+            .remove('active')
+    },
+}
+
 const Storage = {
     get() {
        return JSON.parse(localStorage.getItem("dev.finances:transactions")) || []
@@ -133,6 +156,16 @@ const Utils = {
         return `${splittedDate[2]}/${splittedDate[1]}/${splittedDate[0]}`
     },
 
+    format_initial_date(initial_date) {
+        const splittedDate = initial_date.split("-")
+        return `${splittedDate[2]}/${splittedDate[1]}/${splittedDate[0]}`
+    },
+
+    format_final_date(final_date) {
+        const splittedDate = final_date.split("-")
+        return `${splittedDate[2]}/${splittedDate[1]}/${splittedDate[0]}`
+    },
+
     formatCurrency(value) {
         const signal = Number(value) < 0 ? "-" : ""
         value = String(value).replace(/\,\./g, "")
@@ -164,7 +197,7 @@ const Form = {
         if(description.trim() === "" || 
                 amount.trim() === "" || 
                   date.trim() === "" ){
-                      throw new Error("Por favor, preencha todos os campos!")
+                      throw new Error("teste")
                   }
     },
 
@@ -188,6 +221,7 @@ const Form = {
     submit(event) {
         event.preventDefault()
             try{
+                DOM.clearTransactions()
                 //verificar se todas as informações foram preenchidas
                 this.validateFields()
                 //formatar os dados para salvar
@@ -204,6 +238,120 @@ const Form = {
     }
 }
 
+const Form_dates = {
+    final_date: document.querySelector('input#final_date'),
+    initial_date: document.querySelector('input#initial_date'),
+    
+    getValues() {
+            
+        return {
+            initial_date: this.initial_date.value,
+            final_date: this.final_date.value,
+        }
+    },
+        
+    validate_date() {
+
+        const { initial_date, final_date } = this.getValues()
+
+            if(initial_date.trim() === "", final_date.trim() === ""  ) { 
+
+                throw new Error("Por favor digite a data do período da busca!")
+            }
+    },
+
+    format_date() {
+        
+        let { initial_date, final_date} = this.getValues()
+
+                initial_date = Utils.format_initial_date(initial_date)
+                final_date = Utils.format_final_date(final_date)
+
+            return {
+                initial_date,
+                final_date,  
+            }        
+        },
+
+    clearField_date() {
+
+            this.initial_date.value = ""
+            this.final_date.value = ""
+    },
+        
+    show_incomes() {   
+        DOM.clearTransactions()     
+
+        let incomes = Storage.get()
+        let incomes_period = this.format_date()
+
+        incomes.forEach(function(income) {    
+            if(income.amount > 0) {
+
+                if(income.date >= incomes_period.initial_date && income.date <= incomes_period.final_date) {
+                    DOM.addTransaction(income)         
+                }
+                else if (incomes_period.initial_date == 'undefined/undefined/' || incomes_period.final_date == 'undefined/undefined/'){
+                    DOM.addTransaction(income)
+                    console.log('cheguei')
+                 }
+            }
+        });   
+    },
+
+    show_expenses() {
+        DOM.clearTransactions()
+
+        let expenses = Storage.get()
+        let expenses_period = this.format_date()
+        
+        expenses.forEach(function(expense)  {  
+            if(expense.amount < 0) {
+
+                if(expense.date >= expenses_period.initial_date && expense.date <= expenses_period.final_date) {
+                    DOM.addTransaction(expense)
+                }  
+                else if (expenses_period.initial_date == 'undefined/undefined/' || expenses_period.final_date == 'undefined/undefined/'){
+                    DOM.addTransaction(expense)
+                } 
+            }  
+        });
+    },
+
+    show_all_transactions() {
+        DOM.clearTransactions()
+        let all_transactions = Storage.get()
+        let all_period = Form_dates.format_date()
+
+        all_transactions.forEach(function(all) {
+
+            if(all.date >= all_period.initial_date && all.date <= all_period.final_date) {   
+                DOM.addTransaction(all)
+            }
+        });
+    },
+
+    submit_date(event) {
+
+        event.preventDefault()
+
+            try{
+                DOM.clearTransactions()
+
+                this.validate_date()
+                this.format_date()               
+                this.show_incomes()                   
+                this.show_expenses()
+                this.show_all_transactions() 
+
+                Modal_date.close() 
+
+            }catch(error) {
+                alert(error.message)
+            } 
+    },   
+}
+
 const App = {
     init() {
         /*
@@ -212,10 +360,8 @@ const App = {
             DOM.addTransaction(transaction)
         }) ou
         */
-        Transaction.all.forEach(DOM.addTransaction)
-
+        Transaction.all.forEach(DOM.addTransaction) 
         DOM.updateBalance()
-
         Storage.set(Transaction.all)
     },
 
@@ -224,43 +370,6 @@ const App = {
         App.init()
     }
 }
-
-
-
-function show_incomes() {
-
-    //limpando todos os valores da tela
-    DOM.clearTransactions()
-
-    //buscando o conteúdo da página na Storage e armazenando na variável
-    let incomes = Storage.get();
-
-    //listando os objetos e informando os parâmetros de busca e condicionais para exibição
-    incomes.forEach(function(income) {
-
-        if(income.amount > 0) {
-     // mostrando na DOM apenas objetos com valores positivos      
-            DOM.addTransaction(income)
-       }
-   });
-}
-
-function show_expenses() {
-    // limpando todos os valores da tela
-    DOM.clearTransactions()
-
-    //buscando o conteúdo da página na Storage e armazenando na variável
-    let expenses = Storage.get();
-
-    //listando os objetos e informando os parâmetros de busca e condicionais para exibição
-    expenses.forEach(function(expense) {
-
-        if(expense.amount < 0) {
-     // mostrando na DOM apenas objetos com valores negativos      
-            DOM.addTransaction(expense)
-       }//else
-   });
- }
 
  function reload_ap() {
      App.reload()
