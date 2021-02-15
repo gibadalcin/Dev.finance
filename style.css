@@ -44,16 +44,14 @@ body {
     margin: auto;
 }
 
-
 /*Titles=============================*/
 
 h2 {
-    margin-top: 3.2rem;
+    margin-top: 1rem;
     margin-bottom: 0.8rem;
     color: var(--dark-blue);
     font-weight: 400;
 }
-
 
 /*Links and Buttons==================*/
 
@@ -113,7 +111,6 @@ button:hover {
     opacity: 0.8;
 }
 
-
 /*Header=============================*/
 
 header {
@@ -122,19 +119,39 @@ header {
     text-align: center;
 }
 
-#reload_ap {
+.command_icons {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
     position: fixed;
-    z-index: 1;
-    margin: .5rem 0 0 .5rem;
-    height: 2.5rem; 
-    opacity: 0.5; 
+    justify-content: space-between;
+    margin-top: -4rem; 
+    height: 5rem;
+    width: 100%;
 }
+
+#icon_reload,
+#icon_period {
+    margin-top: 1rem;
+    opacity: 0.7;
+}
+
+#icon_reload {
+    width: 3rem;
+    height: 3rem;
+    margin-left: 1rem;
+}
+
+#icon_period {
+    width: 4.3rem;
+    height: 4.3rem;
+}
+
 
 #name_ap {
-    padding: .2rem 0 0 1rem;
+    justify-content: center;
     height: 28px;
 }
-
 
 /*Balance=============================*/
 
@@ -147,7 +164,6 @@ header {
     margin-top: 0;
 }
 
-
 /* Transaction=========================*/
 
 #transaction {
@@ -159,17 +175,18 @@ header {
 .views {
     display: flex;
     flex-wrap: wrap;
+    flex-direction: column;
     justify-content: center;
     margin-bottom: 1rem;
     margin-top: 1rem;
 }
+
 .views a {
     border: 1px solid;
     min-width: 248px;
     text-align: center;
     border-radius: 0.25rem;
 }
-
 
 /*Cards=============================*/
 
@@ -262,7 +279,6 @@ td.expense {
     color: var(--red);
 }
 
-
 /*Modal=============================*/
 
 .modal-overlay {
@@ -293,7 +309,6 @@ td.expense {
     z-index: 1;
 }
 
-
 /*Modal_date=============================*/
 
 .modal_date {
@@ -317,7 +332,7 @@ td.expense {
 
 .modal_one {
     background: #f0f2f5;
-    padding: 2.4rem;
+    padding:2.4rem;
     width: 90%;
     max-width: 500px;
     position: relative;
@@ -328,7 +343,6 @@ td.expense {
 .modal_one #final_date {
     margin: .5rem 0 1rem 0;
 }
-
 
 /*Form=============================*/
 
@@ -366,6 +380,9 @@ input {
     width: 48%;
 }
 
+#form_dates h2 {
+    padding-top: 1rem;
+}
 
 /*Footer=============================*/
 
@@ -386,7 +403,29 @@ footer {
 
 /*Responsive=============================*/
 
-@media (min-width:800px) {
+@media (min-width:500px) {
+
+    .command_icons {
+        display: flex;
+        flex-wrap: wrap;
+        position: fixed;
+        justify-content: flex-end;
+        margin-top: -3rem; 
+        width: 100%;
+    }
+
+    #icon_reload {
+        width: 3.5rem;
+        height: 3.5rem;    
+    }
+
+    #icon_period {
+        width: 5rem;
+        height: 5rem;
+    }
+}
+
+@media (min-width:830px) {
     html {
         font-size: 87.5%;
     }
@@ -394,18 +433,36 @@ footer {
     #balance {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 2rem;
+        gap:  2rem;
     }
 
     .views {
         display: flex;
         flex-wrap: wrap;
+        flex-direction: row;
         justify-content: space-between;
     }
 
-    #reload_ap {
-        margin: 2rem 0 0 2rem;
-        min-height: 3rem;
+    #icon_reload {
+        width: 4.7rem;
+        height: 4.7rem;
+        margin: 2.5rem 0 0 3rem;
     }
-    
+
+    #icon_period {
+        width: 6.5rem;
+        height: 6.5rem;
+        margin: 2rem 3rem 0 0; 
+    }
+
+    .command_icons {    
+        display: flex;
+        flex-wrap: wrap;
+        justify-content:flex-end;
+        position: fixed; 
+        margin-top: -4rem; 
+        height: 5rem;
+        width: 100%;
+    }
 }
+

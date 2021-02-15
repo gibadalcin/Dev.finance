@@ -11,10 +11,16 @@
 </head>
 
 <body>
-    <a href="#" onclick="Modal_date.open()" >
-        <img id="reload_ap" src="./assets/reload.png" alt="Reload App">
-    </a>
     <header>
+    <nav class="command_icons">
+        <a href="#transaction" onclick="reload_ap()" >
+            <img id="icon_reload" src="./assets/refresh.svg" alt="Reload App">
+        </a>
+        <a href="#transaction" onclick="Modal_date.open()" >
+            <img id="icon_period" src="./assets/calendar_six.svg" alt="Reload App">
+        </a>
+    </nav>
+   
         <img id="name_ap" src="./assets/logo.svg" alt="Logo Dev Finance">
     </header>    
         
@@ -164,7 +170,7 @@
                                 id="final_date" 
                                 name="date"
                             />
-                            <small class="help">Para consulta  das operações realizadas em determinado período, selecione a data inicial e a data final desejadas.</small>
+                            <small class="help">Selecione a data inicial e a data final para consulta por período.</small>
                         </div>
 
                         <div class="input-group actions">
