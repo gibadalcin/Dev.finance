@@ -366,6 +366,7 @@ const App = {
 
     reload() {
         DOM.clearTransactions()
+        Form_dates.clearField_date()
         App.init()
     }
 }
